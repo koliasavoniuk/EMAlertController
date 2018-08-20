@@ -8,7 +8,7 @@
 
 import UIKit
 
-public enum EMAlertActionStyle: Int {
+@objc public enum EMAlertActionStyle: Int {
   case normal
   case cancel
 }
@@ -59,7 +59,7 @@ open class EMAlertAction: UIButton {
     self.setTitleColor(titleColor, for: .normal)
   }
   
-  public convenience init(title: String, style: EMAlertActionStyle, action: (() -> Void)? = nil) {
+  @objc public convenience init(title: String, style: EMAlertActionStyle, action: (() -> Void)? = nil) {
     self.init(type: .system)
     
     self.action = action
