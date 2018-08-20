@@ -313,7 +313,7 @@ extension EMAlertController {
 
 // MARK: - Action Methods
 extension EMAlertController {
-   open func addAction(action: EMAlertAction) {
+   @objc open func addAction(action: EMAlertAction) {
     self.buttonStackView.addArrangedSubview(action)
     
     if self.buttonStackView.axis == .vertical {
