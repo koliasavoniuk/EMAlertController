@@ -18,6 +18,15 @@ enum Dimension {
   static let iconHeight: CGFloat = 100.0
 }
 
+// MARK: - Constraint Constants
+enum ConstraintConstants {
+    static let imageViewTopAnchor: CGFloat = 30.0
+    static let titleLabelTopAnchor: CGFloat = 20.0
+    static let alertViewCenterYAnchor: CGFloat = 100.0
+    static let buttonStackViewTopAnchor: CGFloat = 8.0
+    static let alertViewHeightOffset: CGFloat = 80.0
+}
+
 open class EMAlertController: UIViewController {
   
   // MARK: - Properties
@@ -169,7 +178,7 @@ open class EMAlertController: UIViewController {
   }
   
   /// Spacing between actions when presenting two actions in horizontal
-  public var buttonSpacing: CGFloat = 15 {
+  public var buttonSpacing: CGFloat = 0 {
     willSet {
       buttonStackView.spacing = newValue
     }
@@ -185,6 +194,8 @@ open class EMAlertController: UIViewController {
     }
   
   // MARK: - Initializers
+  let messageLabelHeightConstant: CGFloat = 20
+    
   required public init?(coder aDecoder: NSCoder) {
     super.init(coder: aDecoder)
   }
@@ -197,36 +208,40 @@ open class EMAlertController: UIViewController {
     messageText = message
     
     (icon != nil) ? (iconImage = icon) : (imageViewHeight = 0.0)
-    (message != nil) ? (messageLabelHeight = 20) : (messageLabelHeight = 0.0)
+    (message != nil) ? (messageLabelHeight = messageLabelHeightConstant) : (messageLabelHeight = 0.0)
     
     setUp()
   }
   
   /// Creates a EMAlertController object with the specified title and message
+  let animationDuration: TimeInterval = 0.4
+  let velocity: CGFloat = 0.5
+  let damping: CGFloat = 0.6
+    
   public convenience init (title: String, message: String?) {
     self.init(icon: nil, title: title, message: message)
   }
 
   override open func viewDidLayoutSubviews() {
-    if alertView.frame.height >= UIScreen.main.bounds.height - 80 {
+    if alertView.frame.height >= UIScreen.main.bounds.height - ConstraintConstants.alertViewHeightOffset {
       messageTextView.isScrollEnabled = true
     }
 
-    UIView.animate(withDuration: 0.4, delay: 0.0, usingSpringWithDamping: 0.6, initialSpringVelocity: 0.5, options: .curveLinear, animations: {
+    UIView.animate(withDuration: animationDuration, delay: 0.0, usingSpringWithDamping: damping, initialSpringVelocity: velocity, options: .curveLinear, animations: {
       let transform = CGAffineTransform(translationX: 0, y: -100)
       self.alertView.transform = transform
     }, completion: nil)
   }
   
   override open func viewWillDisappear(_ animated: Bool) {
-    UIView.animate(withDuration: 0.4, delay: 0.0, usingSpringWithDamping: 1, initialSpringVelocity: 0.5, options: .curveLinear, animations: {
+    UIView.animate(withDuration: animationDuration, delay: 0.0, usingSpringWithDamping: 1, initialSpringVelocity: velocity, options: .curveLinear, animations: {
       let transform = CGAffineTransform(translationX: 0, y: 50)
       self.alertView.transform = transform
     }, completion: nil)
   }
   
   open override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-    alertViewHeight?.constant = size.height - 80
+    alertViewHeight?.constant = size.height - ConstraintConstants.alertViewHeightOffset
     alertView.layoutIfNeeded()
   }
 }
@@ -259,24 +274,24 @@ extension EMAlertController {
     backgroundView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
     
     // alertView Constraints
-    alertView.centerYAnchor.constraint(equalTo: backgroundView.centerYAnchor, constant: 100).isActive = true
+    alertView.centerYAnchor.constraint(equalTo: backgroundView.centerYAnchor, constant: ConstraintConstants.alertViewCenterYAnchor).isActive = true
     alertView.centerXAnchor.constraint(equalTo: backgroundView.centerXAnchor).isActive = true
     alertView.widthAnchor.constraint(equalToConstant: Dimension.width).isActive = true
-    alertViewHeight = alertView.heightAnchor.constraint(lessThanOrEqualToConstant: view.bounds.height - 80)
+    alertViewHeight = alertView.heightAnchor.constraint(lessThanOrEqualToConstant: view.bounds.height - ConstraintConstants.alertViewHeightOffset)
     alertViewHeight!.isActive = true
     
     // imageView Constraints
-    imageView.topAnchor.constraint(equalTo: alertView.topAnchor, constant: 30).isActive = true
+    imageView.topAnchor.constraint(equalTo: alertView.topAnchor, constant: ConstraintConstants.imageViewTopAnchor).isActive = true
     imageView.leadingAnchor.constraint(equalTo: alertView.leadingAnchor, constant: Dimension.padding).isActive = true
     imageView.trailingAnchor.constraint(equalTo: alertView.trailingAnchor, constant: -Dimension.padding).isActive = true
     iconHeightConstraint = imageView.heightAnchor.constraint(equalToConstant: imageViewHeight)
     iconHeightConstraint?.isActive = true
     
     // titleLabel Constraints
-    titleLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 20).isActive = true
+    titleLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: ConstraintConstants.titleLabelTopAnchor).isActive = true
     titleLabel.leadingAnchor.constraint(equalTo: alertView.leadingAnchor, constant: Dimension.padding).isActive = true
     titleLabel.trailingAnchor.constraint(equalTo: alertView.trailingAnchor, constant: -Dimension.padding).isActive = true
-    titleLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 20).isActive = true
+    titleLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: ConstraintConstants.titleLabelTopAnchor).isActive = true
     titleLabel.sizeToFit()
     
     // messageLabel Constraints
@@ -287,7 +302,7 @@ extension EMAlertController {
     messageTextView.sizeToFit()
   
     // actionStackView Constraints
-    buttonStackView.topAnchor.constraint(equalTo: messageTextView.bottomAnchor, constant: 8).isActive = true
+    buttonStackView.topAnchor.constraint(equalTo: messageTextView.bottomAnchor, constant: ConstraintConstants.buttonStackViewTopAnchor).isActive = true
     buttonStackView.leadingAnchor.constraint(equalTo: alertView.leadingAnchor, constant: 0).isActive = true
     buttonStackView.trailingAnchor.constraint(equalTo: alertView.trailingAnchor, constant: 0).isActive = true
     buttonStackView.bottomAnchor.constraint(equalTo: alertView.bottomAnchor, constant: 0).isActive = true
