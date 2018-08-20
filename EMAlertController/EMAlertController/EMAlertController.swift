@@ -114,7 +114,7 @@ open class EMAlertController: UIViewController {
         iconHeightConstraint?.constant = imageViewHeight
         return
       }
-      (image.size.height > CGFloat(0.0)) ? (imageViewHeight = Dimension.iconHeight) : (imageViewHeight = 0)
+      (image.size.height > CGFloat(0.0)) ? (imageViewHeight = image.size.height) : (imageViewHeight = 0)
       iconHeightConstraint?.constant = imageViewHeight
     }
   }
@@ -266,14 +266,14 @@ extension EMAlertController {
     alertViewHeight!.isActive = true
     
     // imageView Constraints
-    imageView.topAnchor.constraint(equalTo: alertView.topAnchor, constant: 5).isActive = true
+    imageView.topAnchor.constraint(equalTo: alertView.topAnchor, constant: 30).isActive = true
     imageView.leadingAnchor.constraint(equalTo: alertView.leadingAnchor, constant: Dimension.padding).isActive = true
     imageView.trailingAnchor.constraint(equalTo: alertView.trailingAnchor, constant: -Dimension.padding).isActive = true
     iconHeightConstraint = imageView.heightAnchor.constraint(equalToConstant: imageViewHeight)
     iconHeightConstraint?.isActive = true
     
     // titleLabel Constraints
-    titleLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 8).isActive = true
+    titleLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 20).isActive = true
     titleLabel.leadingAnchor.constraint(equalTo: alertView.leadingAnchor, constant: Dimension.padding).isActive = true
     titleLabel.trailingAnchor.constraint(equalTo: alertView.trailingAnchor, constant: -Dimension.padding).isActive = true
     titleLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 20).isActive = true
@@ -299,16 +299,14 @@ extension EMAlertController {
 // MARK: - Action Methods
 extension EMAlertController {
    open func addAction(action: EMAlertAction) {
-    buttonStackView.addArrangedSubview(action)
+    self.buttonStackView.addArrangedSubview(action)
     
-    if buttonStackView.arrangedSubviews.count > 2 {
-      buttonStackView.axis = .vertical
-      buttonStackViewHeightConstraint?.constant = Dimension.buttonHeight * CGFloat(buttonStackView.arrangedSubviews.count)
-      buttonStackView.spacing = 0
+    if self.buttonStackView.axis == .vertical {
+        self.buttonStackViewHeightConstraint?.constant = Dimension.buttonHeight * CGFloat(self.buttonStackView.arrangedSubviews.count)
+        self.buttonStackView.spacing = 0
     } else {
-      buttonStackViewHeightConstraint?.constant = Dimension.buttonHeight
-      buttonStackView.axis = .horizontal
-      buttonStackView.spacing = 15
+        self.buttonStackViewHeightConstraint?.constant = Dimension.buttonHeight
+        self.buttonStackView.spacing = 0
     }
     
     action.addTarget(self, action: #selector(buttonAction), for: .touchUpInside)
