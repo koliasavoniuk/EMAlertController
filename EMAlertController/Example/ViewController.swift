@@ -20,7 +20,8 @@ extension ViewController {
   @IBAction func showAlert(sender: UIButton) {
     
     let alert = EMAlertController(icon: UIImage(named: "icon"), title: "EMAlertView Title", message: "This is a simple message for the EMAlertView")
-
+    alert.buttonStackView.axis = .vertical
+    
     let action1 = EMAlertAction(title: "CANCEL", style: .cancel)
     let action2 = EMAlertAction(title: "CONFIRM", style: .normal) {
       // Perform Action
