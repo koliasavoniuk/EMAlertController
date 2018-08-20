@@ -201,7 +201,7 @@ enum ConstraintConstants {
   }
   
   /// Creates a EMAlertController object with the specified icon, title and message
-  public init(icon: UIImage?, title: String, message: String?) {
+  @objc public init(icon: UIImage?, title: String, message: String?) {
     super.init(nibName: nil, bundle: nil)
     
     titleText = title
