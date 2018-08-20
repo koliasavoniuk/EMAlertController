@@ -27,7 +27,7 @@ enum ConstraintConstants {
     static let alertViewHeightOffset: CGFloat = 80.0
 }
 
-open class EMAlertController: UIViewController {
+@objc open class EMAlertController: UIViewController {
   
   // MARK: - Properties
   internal var alertViewHeight: NSLayoutConstraint?
