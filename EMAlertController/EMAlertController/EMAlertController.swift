@@ -50,7 +50,7 @@ enum ConstraintConstants {
   internal var alertView: UIView = {
     let alertView = UIView()
     alertView.translatesAutoresizingMaskIntoConstraints = false
-    alertView.backgroundColor = UIColor.emAlertviewColor
+    alertView.backgroundColor = UIColor.white
     alertView.layer.cornerRadius = 14
     alertView.layer.shadowColor = UIColor.black.cgColor
     alertView.layer.shadowOpacity = 0.2
