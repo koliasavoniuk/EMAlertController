@@ -281,7 +281,8 @@ extension EMAlertController {
     alertViewHeight!.isActive = true
     
     // imageView Constraints
-    imageView.topAnchor.constraint(equalTo: alertView.topAnchor, constant: ConstraintConstants.imageViewTopAnchor).isActive = true
+    let topAnchor = (self.imageView.image != nil) ? ConstraintConstants.imageViewTopAnchor : CGFloat(0.0)
+    imageView.topAnchor.constraint(equalTo: alertView.topAnchor, constant: topAnchor).isActive = true
     imageView.leadingAnchor.constraint(equalTo: alertView.leadingAnchor, constant: Dimension.padding).isActive = true
     imageView.trailingAnchor.constraint(equalTo: alertView.trailingAnchor, constant: -Dimension.padding).isActive = true
     iconHeightConstraint = imageView.heightAnchor.constraint(equalToConstant: imageViewHeight)
