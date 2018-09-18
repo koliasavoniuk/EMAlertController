@@ -96,7 +96,7 @@ enum ConstraintConstants {
     return textview
   }()
   
-  @objc internal let buttonStackView: UIStackView = {
+  @objc public let buttonStackView: UIStackView = {
     let stackView = UIStackView()
     stackView.translatesAutoresizingMaskIntoConstraints = false
     stackView.alignment = .fill
