@@ -65,15 +65,13 @@ open class EMAlertAction: UIButton {
     
     self.action = action
     self.addTarget(self, action: #selector(actionTapped), for: .touchUpInside)
-    self.setTitleColor(#colorLiteral(red: 0.2431372549, green: 0.4666666667, blue: 0.6666666667, alpha: 1), for: .normal)
 
     switch style {
       case .normal:
         setTitle(title: title, forStyle: .normal)
-      
       case .cancel:
         setTitle(title: title, forStyle: .cancel)
-    case .boldBlue:
+      case .boldBlue:
         setTitle(title: title, forStyle: .boldBlue)
     }
   }
