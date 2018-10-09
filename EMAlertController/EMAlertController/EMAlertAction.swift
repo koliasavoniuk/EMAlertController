@@ -19,25 +19,25 @@ open class EMAlertAction: UIButton {
   // MARK: - Properties
   internal var action: (() -> Void)?
   
-  public var title: String? {
+  @objc public var title: String? {
     willSet {
       setTitle(newValue, for: .normal)
     }
   }
   
-  public var titleColor: UIColor? {
+  @objc public var titleColor: UIColor? {
     willSet {
       setTitleColor(newValue, for: .normal)
     }
   }
   
-  public var titleFont: UIFont? {
+  @objc public var titleFont: UIFont? {
     willSet {
       self.titleLabel?.font = newValue
     }
   }
   
-  public var actionBackgroundColor: UIColor? {
+  @objc public var actionBackgroundColor: UIColor? {
     willSet {
       backgroundColor = newValue
     }
