@@ -24,7 +24,7 @@ extension UIColor {
   static let emCancelColor = cancelRedColor()
   
   /// Default color of the EMAlertAction normal style
-  static let emActionColor = defaultGrayColor()
+  //static let emActionColor = defaultGrayColor()
   
     internal static func alertViewColor() -> UIColor {
     return UIColor(red: 250/255, green: 250/255, blue: 250/255, alpha: 1.0)
@@ -42,7 +42,7 @@ extension UIColor {
     return UIColor(red: 230/255, green: 57/255, blue: 70/255, alpha: 1.0)
   }
   
-  internal static func defaultGrayColor() -> UIColor {
-    return UIColor(red: 53/255, green: 53/255, blue: 53/255, alpha: 1.0)
-  }
+//  internal static func defaultGrayColor() -> UIColor {
+//    return UIColor(red: 53/255, green: 53/255, blue: 53/255, alpha: 1.0)
+//  }
 }
