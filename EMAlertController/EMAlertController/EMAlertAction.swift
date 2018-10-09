@@ -11,6 +11,7 @@ import UIKit
 @objc public enum EMAlertActionStyle: Int {
   case normal
   case cancel
+  case boldBlue
 }
 
 /// An action that can be taken when the user taps a button in an EMAlertController
@@ -64,13 +65,16 @@ open class EMAlertAction: UIButton {
     
     self.action = action
     self.addTarget(self, action: #selector(actionTapped), for: .touchUpInside)
-    
+    self.setTitleColor(#colorLiteral(red: 0.2431372549, green: 0.4666666667, blue: 0.6666666667, alpha: 1), for: .normal)
+
     switch style {
       case .normal:
         setTitle(title: title, forStyle: .normal)
       
       case .cancel:
         setTitle(title: title, forStyle: .cancel)
+    case .boldBlue:
+        setTitle(title: title, forStyle: .boldBlue)
     }
   }
 }
@@ -83,12 +87,16 @@ internal extension EMAlertAction {
 
     switch forStyle {
     case .normal:
-      setTitleColor(UIColor.emActionColor, for: .normal)
-      titleFont = UIFont.boldSystemFont(ofSize: 16)
+      //setTitleColor(UIColor.emActionColor, for: .normal)
+      setTitleColor(#colorLiteral(red: 0.2431372549, green: 0.4666666667, blue: 0.6666666667, alpha: 1), for: .normal)
+      titleFont = UIFont.systemFont(ofSize: 17)
       
     case .cancel:
       setTitleColor(UIColor.emCancelColor, for: .normal)
-      titleFont = UIFont.boldSystemFont(ofSize: 16)
+      titleFont = UIFont.systemFont(ofSize: 17)
+    case .boldBlue:
+        setTitleColor(#colorLiteral(red: 0.2431372549, green: 0.4666666667, blue: 0.6666666667, alpha: 1), for: .normal)
+        titleFont = UIFont.boldSystemFont(ofSize: 17)
     }
   }
   
